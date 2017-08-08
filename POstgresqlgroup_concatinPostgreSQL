@@ -1,0 +1,8 @@
+
+SELECT mp.name, array_to_string(ARRAY(SELECT unnest(array_agg(cb.name)) 
+                                               ORDER BY 1),'<------------------>') 
+                                              from   m_pricelist mp
+                                              inner join  c_bpartner cb on cb.m_pricelist_id=mp.m_pricelist_id
+                                              where    mp.ad_org_id in ('FC9C32DC8672461F964E7B36D753E043')
+                                              group by mp.name
+                                              having count(cb.name)>1
